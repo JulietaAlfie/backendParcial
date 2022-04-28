@@ -1,4 +1,16 @@
 spring:
+#   security:
+#     oauth2:
+#       client:
+#         provider:
+#           google:
+#             issuer-uri: https://accounts.google.com
+#         registration:
+#           google:
+#             client-id: 728533990652-jdps7gpf08vbisa3sjjttrr5423b5n42.apps.googleusercontent.com
+#             client-secret: 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
+#             scope: openid
+#             redirect-uri: http://localhost:8080/login/oauth2/code/google
   cloud:
     gateway:
       discovery:
@@ -6,6 +18,10 @@ spring:
           enabled: false
           lower-case-service-id: true
       routes:
+#         - id: accountRoute
+#           uri: http://localhost:8080
+#           predicates:
+#             - Path=/account/**
         - id: movie-service-route
           uri: lb://movie-service
           predicates:
@@ -18,6 +34,9 @@ spring:
           uri: lb://catalog-service
           predicates:
             - Path=/catalog/**
+#       default-filters:
+#         - LogFilter
+#         - TokenRelay
 server:
   port: ${SERVER_PORT:8080}
 
